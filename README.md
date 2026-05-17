@@ -190,4 +190,4 @@ Sistem Analizi ve Tasarımı
 
 ## Unit Test Sonuçları
 
-![Unit Test](screenshots/testler.jpg)
+![Unit Test](screenshot/testler.jpg)
