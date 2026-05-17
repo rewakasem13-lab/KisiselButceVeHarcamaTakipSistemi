@@ -184,3 +184,10 @@ Sistem Analizi ve Tasarımı
 ## Ayarlar
 
 ![Ayarlar](screenshot/ayarlar.jpg)
+
+
+---
+
+## Unit Test Sonuçları
+
+![Unit Test](screenshots/testler.jpg)
