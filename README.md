@@ -134,3 +134,53 @@ Rewa Kasem
 # Ders
 
 Sistem Analizi ve Tasarımı
+
+---
+
+# Ekran Görüntüleri
+
+## Dashboard
+
+![Dashboard](screenshots/dashboard.jpg)
+
+---
+
+## Harcamalar
+
+![Harcamalar](screenshots/harcamalar.jpg)
+
+---
+
+## Harcama Detayları
+
+![Harcama Detayları](screenshots/harcama-ekran-devami.jpg)
+
+---
+
+## Gelirler
+
+![Gelirler](screenshots/gelirler.jpg)
+
+---
+
+## Bütçe Yönetimi
+
+![Bütçe Yönetimi](screenshots/butce.jpg)
+
+---
+
+## Son İşlemler
+
+![Son İşlemler](screenshots/son-islemler.jpg)
+
+---
+
+## Aylık Raporlar
+
+![Aylık Raporlar](screenshots/raporlar.jpg)
+
+---
+
+## Ayarlar
+
+![Ayarlar](screenshots/ayarlar.jpg)
