@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bütçe Takip Sistemi</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <h2 class="logo">BütçeApp</h2>
+
+        <button class="menu-btn aktif" onclick="sekmeGoster('dashboard')">🏠 Dashboard</button>
+        <button class="menu-btn" onclick="sekmeGoster('harcamalar')">💸 Harcamalar</button>
+        <button class="menu-btn" onclick="sekmeGoster('gelirler')">💰 Gelirler</button>
+        <button class="menu-btn" onclick="sekmeGoster('butce')">📊 Bütçe Yönetimi</button>
+        <button class="menu-btn" onclick="sekmeGoster('son-islemler')">🕘 Son İşlemler</button>
+        <button class="menu-btn" onclick="sekmeGoster('raporlar')">📅 Aylık Raporlar</button>
+        <button class="menu-btn" onclick="sekmeGoster('ayarlar')">⚙️ Ayarlar</button>
+    </aside>
+
+    <main class="main-content">
+
+        <section id="dashboard" class="sekme aktif-sekme">
+            <h1>Dashboard</h1>
+<h2 id="karsilamaMesaji">
+    Merhaba, Rewa 👋
+</h2>
+            <div class="dashboard">
+                <div class="ozet-kutu">
+                    <h3>Toplam Harcama</h3>
+                    <p id="toplamHarcama">0 ₺</p>
+                </div>
+
+                <div class="ozet-kutu">
+                    <h3>Toplam Gelir</h3>
+                    <p id="toplamGelir">0 ₺</p>
+                </div>
+
+                <div class="ozet-kutu">
+                    <h3>Kalan Bakiye</h3>
+                    <p id="kalanBakiye">0 ₺</p>
+                </div>
+            </div>
+
+            <p id="butceDurum">Henüz bütçe girilmedi.</p>
+        </section>
+
+        <section id="harcamalar" class="sekme">
+            <h1>Harcamalar</h1>
+
+            <div class="form-container">
+                <h2>Yeni Harcama Ekle</h2>
+
+                <form id="harcamaForm">
+                    <input type="text" id="baslik" placeholder="Harcama Başlığı" required>
+                    <input type="number" id="miktar" placeholder="Miktar" required>
+
+                    <select id="kategori" required>
+                        <option value="">Kategori Seç</option>
+                        <option value="Gıda ve Market">Gıda ve Market</option>
+                        <option value="Ulaşım">Ulaşım</option>
+                        <option value="Fatura ve Abonelik">Fatura ve Abonelik</option>
+                        <option value="Kira ve Konut">Kira ve Konut</option>
+                        <option value="Sağlık">Sağlık</option>
+                        <option value="Eğitim">Eğitim</option>
+                        <option value="Alışveriş">Alışveriş</option>
+                        <option value="Eğlence ve Sosyal Yaşam">Eğlence ve Sosyal Yaşam</option>
+                        <option value="Kişisel Bakım">Kişisel Bakım</option>
+                        <option value="Seyahat">Seyahat</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+
+                    <input type="date" id="tarih" required>
+                    <textarea id="aciklama" placeholder="Açıklama"></textarea>
+
+                    <button type="submit">Harcama Ekle</button>
+                </form>
+            </div>
+
+            <div class="liste-container">
+                <h2>Harcama Listesi</h2>
+
+                <div class="filtre-alani">
+                    <input type="text" id="aramaInput" placeholder="Harcama Ara...">
+
+                    <select id="kategoriFiltre">
+                        <option value="">Tüm Kategoriler</option>
+                        <option value="Gıda ve Market">Gıda ve Market</option>
+                        <option value="Ulaşım">Ulaşım</option>
+                        <option value="Fatura ve Abonelik">Fatura ve Abonelik</option>
+                        <option value="Kira ve Konut">Kira ve Konut</option>
+                        <option value="Sağlık">Sağlık</option>
+                        <option value="Eğitim">Eğitim</option>
+                        <option value="Alışveriş">Alışveriş</option>
+                        <option value="Eğlence ve Sosyal Yaşam">Eğlence ve Sosyal Yaşam</option>
+                        <option value="Kişisel Bakım">Kişisel Bakım</option>
+                        <option value="Seyahat">Seyahat</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+
+                    <input type="date" id="tarihFiltre">
+                </div>
+
+                <div id="harcamaListesi"></div>
+            </div>
+        </section>
+
+        <section id="gelirler" class="sekme">
+            <h1>Gelirler</h1>
+
+            <div class="form-container">
+                <h2>Yeni Gelir Ekle</h2>
+
+                <form id="gelirForm">
+                    <input type="number" id="gelirMiktar" placeholder="Gelir Miktarı" required>
+                    <input type="date" id="gelirTarih" required>
+                    <button type="submit">Gelir Ekle</button>
+                </form>
+            </div>
+
+            <div class="liste-container">
+                <h2>Son Gelirler</h2>
+                <div id="gelirListesi"></div>
+            </div>
+        </section>
+
+        <section id="butce" class="sekme">
+            <h1>Bütçe Yönetimi</h1>
+
+            <div class="butce-container">
+                <h2>Aylık Bütçe Limiti</h2>
+
+                <input type="number" id="butceInput" placeholder="Örn: 10000">
+
+                <button id="butceKaydetBtn">Bütçeyi Kaydet</button>
+
+                <p id="butceDurumButce">Henüz bütçe girilmedi.</p>
+            </div>
+        </section>
+
+      <section id="son-islemler" class="sekme">
+    <h1>Son İşlemler</h1>
+
+    <div class="liste-container">
+        <h2>Gelir ve Harcama Hareketleri</h2>
+        <div id="sonIslemlerListesi"></div>
+    </div>
+</section>
+
+        <section id="raporlar" class="sekme">
+    <h1>Aylık Raporlar</h1>
+
+    <div class="dashboard">
+
+        <div class="ozet-kutu">
+            <h3>Bu Ay Toplam Gelir</h3>
+            <p id="aylikGelir">0 ₺</p>
+        </div>
+
+        <div class="ozet-kutu">
+            <h3>Bu Ay Toplam Harcama</h3>
+            <p id="aylikHarcama">0 ₺</p>
+        </div>
+
+        <div class="ozet-kutu">
+            <h3>Bu Ay Kalan Bakiye</h3>
+            <p id="aylikBakiye">0 ₺</p>
+        </div>
+
+    </div>
+
+    <div class="liste-container">
+        <h2>En Çok Harcama Yapılan Kategori</h2>
+        <p id="enCokKategori">Veri bulunamadı.</p>
+    </div>
+
+</section>
+
+        <section id="ayarlar" class="sekme">
+
+        <div class="liste-container">
+
+    <h2>Kullanıcı Bilgileri</h2>
+
+    <input
+        type="text"
+        id="kullaniciAdiInput"
+        placeholder="Kullanıcı adı"
+    >
+
+    <button id="kullaniciAdiBtn">
+        Kullanıcı Adını Kaydet
+    </button>
+
+</div>
+            
+    <h1>Ayarlar</h1>
+
+    <div class="liste-container">
+        <h2>Görünüm Ayarları</h2>
+
+        <button id="temaDegistirBtn">
+            Koyu Temayı Aç / Kapat
+        </button>
+
+        <button id="verileriTemizleBtn" class="danger-btn">
+    Tüm Verileri Temizle
+</button>
+
+    </div>
+</section>
+
+    </main>
+
+</div>
+
+<div id="bildirimKutusu"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
