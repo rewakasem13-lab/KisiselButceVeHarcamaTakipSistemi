@@ -141,46 +141,46 @@ Sistem Analizi ve Tasarımı
 
 ## Dashboard
 
-![Dashboard](screenshots/dashboard.jpg)
+![Dashboard](screenshot/dashboard.jpg)
 
 ---
 
 ## Harcamalar
 
-![Harcamalar](screenshots/harcamalar.jpg)
+![Harcamalar](screenshot/harcamalar.jpg)
 
 ---
 
 ## Harcama Detayları
 
-![Harcama Detayları](screenshots/harcama-ekran-devami.jpg)
+![Harcama Detayları](screenshot/harcama-ekran-devami.jpg)
 
 ---
 
 ## Gelirler
 
-![Gelirler](screenshots/gelirler.jpg)
+![Gelirler](screenshot/gelirler.jpg)
 
 ---
 
 ## Bütçe Yönetimi
 
-![Bütçe Yönetimi](screenshots/butce.jpg)
+![Bütçe Yönetimi](screenshot/butce.jpg)
 
 ---
 
 ## Son İşlemler
 
-![Son İşlemler](screenshots/son-islemler.jpg)
+![Son İşlemler](screenshot/son-islemler.jpg)
 
 ---
 
 ## Aylık Raporlar
 
-![Aylık Raporlar](screenshots/raporlar.jpg)
+![Aylık Raporlar](screenshot/raporlar.jpg)
 
 ---
 
 ## Ayarlar
 
-![Ayarlar](screenshots/ayarlar.jpg)
+![Ayarlar](screenshot/ayarlar.jpg)
