@@ -143,62 +143,66 @@ ButceTakipSistemi
 │
 └── README.md
 
-# Ekran Görüntüleri
+``` 
 
-## Giriş Ekranı
+---
+
+## Ekran Görüntüleri
+
+### Giriş Ekranı
 
 ![Giriş Ekranı](screenshot/giris_ekrani.jpg)
 
 ---
 
-## Kayıt Ekranı
+### Kayıt Ekranı
 
 ![Kayıt Ekranı](screenshot/kayit_ekrani.jpg)
 
 ---
 
-## Dashboard
+### Dashboard
 
 ![Dashboard](screenshot/dashboard.jpg)
 
 ---
 
-## Harcamalar
+### Harcamalar
 
 ![Harcamalar](screenshot/harcamalar.jpg)
 
 ---
 
-## Gelirler
+### Gelirler
 
 ![Gelirler](screenshot/gelirler.jpg)
 
 ---
 
-## Bütçe Yönetimi
+### Bütçe Yönetimi
 
 ![Bütçe Yönetimi](screenshot/butce.jpg)
 
 ---
 
-## Son İşlemler
+### Son İşlemler
 
 ![Son İşlemler](screenshot/son_islemler.jpg)
 
 ---
 
-## Aylık Raporlar
+### Aylık Raporlar
 
 ![Aylık Raporlar](screenshot/raporlar.jpg)
 
 ---
 
-## Ayarlar
+### Ayarlar
 
 ![Ayarlar](screenshot/ayarlar.jpg)
 
 ---
 
-## Unit Test Sonuçları
+### Unit Test Sonuçları
 
 ![Unit Test Sonuçları](screenshot/testler.jpg)
