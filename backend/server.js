@@ -5,7 +5,9 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const app = express();
 const PORT = 3000;
-
+const SECRET_KEY = "butceappsecretkey";
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 app.use(cors());
 app.use(express.json());
@@ -47,7 +49,7 @@ app.get("/", (req, res) => {
  *         description: Harcama başarıyla eklendi
  */
 
-app.post("/harcamalar", (req, res) => {
+app.post("/harcamalar", tokenKontrol, (req, res) => {
     const { baslik, miktar, kategori, tarih, aciklama } = req.body;
 
     if (!baslik || !miktar || !kategori || !tarih) {
@@ -57,12 +59,12 @@ app.post("/harcamalar", (req, res) => {
     }
 
     const sql = `
-        INSERT INTO harcamalar 
-        (baslik, miktar, kategori, tarih, aciklama)
-        VALUES (?, ?, ?, ?, ?)
+       INSERT INTO harcamalar 
+(user_id, baslik, miktar, kategori, tarih, aciklama)
+VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    db.run(sql, [baslik, miktar, kategori, tarih, aciklama], function (err) {
+    db.run(sql,[req.user.id, baslik, miktar, kategori, tarih, aciklama], function (err) {
         if (err) {
             return res.status(500).json({
                 error: err.message
@@ -88,14 +90,15 @@ app.post("/harcamalar", (req, res) => {
  *         description: Harcama listesi başarıyla getirildi
  */
 
-app.get("/harcamalar", (req, res) => {
+app.get("/harcamalar", tokenKontrol, (req, res) => {
 
     const sql = `
         SELECT * FROM harcamalar
-        ORDER BY id DESC
+WHERE user_id = ?
+ORDER BY id DESC
     `;
 
-    db.all(sql, [], (err, rows) => {
+    db.all(sql, [req.user.id], (err, rows) => {
 
         if (err) {
             return res.status(500).json({
@@ -126,16 +129,16 @@ app.get("/harcamalar", (req, res) => {
  *         description: Harcama başarıyla silindi
  */
 
-app.delete("/harcamalar/:id", (req, res) => {
+app.delete("/harcamalar/:id", tokenKontrol, (req, res) => {
 
     const id = req.params.id;
 
     const sql = `
-        DELETE FROM harcamalar
-        WHERE id = ?
+       DELETE FROM harcamalar
+WHERE id = ? AND user_id = ?
     `;
 
-    db.run(sql, [id], function (err) {
+    db.run(sql,[id, req.user.id], function (err) {
 
         if (err) {
             return res.status(500).json({
@@ -151,7 +154,7 @@ app.delete("/harcamalar/:id", (req, res) => {
 
 });
 
-app.put("/harcamalar/:id", (req, res) => {
+app.put("/harcamalar/:id", tokenKontrol, (req, res) => {
     const id = req.params.id;
     const { baslik, miktar, kategori, tarih, aciklama } = req.body;
 
@@ -163,11 +166,11 @@ app.put("/harcamalar/:id", (req, res) => {
 
     const sql = `
         UPDATE harcamalar
-        SET baslik = ?, miktar = ?, kategori = ?, tarih = ?, aciklama = ?
-        WHERE id = ?
+SET baslik = ?, miktar = ?, kategori = ?, tarih = ?, aciklama = ?
+WHERE id = ? AND user_id = ?
     `;
 
-    db.run(sql, [baslik, miktar, kategori, tarih, aciklama, id], function (err) {
+    db.run(sql, [baslik, miktar, kategori, tarih, aciklama, id, req.user.id], function (err) {
         if (err) {
             return res.status(500).json({
                 error: err.message
@@ -192,8 +195,8 @@ app.put("/harcamalar/:id", (req, res) => {
  *         description: Gelir başarıyla eklendi
  */
 
-app.post("/gelirler", (req, res) => {
-    const { miktar, tarih } = req.body;
+app.post("/gelirler", tokenKontrol, (req, res) => {
+    const { baslik, miktar, tarih } = req.body;
 
     if (!miktar || !tarih) {
         return res.status(400).json({
@@ -201,13 +204,13 @@ app.post("/gelirler", (req, res) => {
         });
     }
 
-    const sql = `
-        INSERT INTO gelirler 
-        (miktar, tarih)
-        VALUES (?, ?)
-    `;
+   const sql = `
+    INSERT INTO gelirler 
+    (user_id, baslik, miktar, tarih)
+    VALUES (?, ?, ?, ?)
+`;
 
-    db.run(sql, [miktar, tarih], function (err) {
+   db.run(sql, [req.user.id, baslik, miktar, tarih], function (err) {
         if (err) {
             console.log("Gelir ekleme hatası:", err.message);
             return res.status(500).json({
@@ -234,13 +237,14 @@ app.post("/gelirler", (req, res) => {
  *         description: Gelir listesi başarıyla getirildi
  */
 
-app.get("/gelirler", (req, res) => {
+app.get("/gelirler", tokenKontrol, (req, res) => {
     const sql = `
         SELECT * FROM gelirler
-        ORDER BY id DESC
+WHERE user_id = ?
+ORDER BY id DESC
     `;
 
-    db.all(sql, [], (err, rows) => {
+    db.all(sql, [req.user.id], (err, rows) => {
         if (err) {
             return res.status(500).json({
                 error: err.message
@@ -269,15 +273,15 @@ app.get("/gelirler", (req, res) => {
  *         description: Gelir başarıyla silindi
  */
 
-app.delete("/gelirler/:id", (req, res) => {
+app.delete("/gelirler/:id", tokenKontrol, (req, res) => {
     const id = req.params.id;
 
     const sql = `
-        DELETE FROM gelirler
-        WHERE id = ?
+       DELETE FROM gelirler
+WHERE id = ? AND user_id = ?
     `;
 
-    db.run(sql, [id], function (err) {
+    db.run(sql, [id, req.user.id], function (err) {
         if (err) {
             return res.status(500).json({
                 error: err.message
@@ -290,10 +294,10 @@ app.delete("/gelirler/:id", (req, res) => {
     });
 });
 
-app.delete("/veriler", (req, res) => {
+app.delete("/veriler", tokenKontrol, (req, res) => {
     db.serialize(() => {
-        db.run("DELETE FROM harcamalar");
-        db.run("DELETE FROM gelirler", (err) => {
+        db.run("DELETE FROM harcamalar WHERE user_id = ?", [req.user.id]);
+db.run("DELETE FROM gelirler WHERE user_id = ?", [req.user.id], (err) => {
             if (err) {
                 return res.status(500).json({
                     error: err.message
@@ -306,6 +310,113 @@ app.delete("/veriler", (req, res) => {
         });
     });
 });
+
+app.post("/register", async (req, res) => {
+
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).json({
+            error: "Kullanıcı adı ve şifre zorunludur."
+        });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    db.run(
+        `INSERT INTO users (username, password)
+         VALUES (?, ?)`,
+        [username, hashedPassword],
+        function (err) {
+
+            if (err) {
+                return res.status(500).json({
+                    error: "Kullanıcı oluşturulamadı."
+                });
+            }
+
+            res.status(201).json({
+                message: "Kullanıcı başarıyla oluşturuldu."
+            });
+
+        }
+    );
+
+});
+
+app.post("/login", (req, res) => {
+
+    const { username, password } = req.body;
+
+    db.get(
+        `SELECT * FROM users WHERE username = ?`,
+        [username],
+        async (err, user) => {
+
+            if (err || !user) {
+                return res.status(401).json({
+                    error: "Kullanıcı bulunamadı."
+                });
+            }
+
+            const sifreDogruMu =
+                await bcrypt.compare(password, user.password);
+
+            if (!sifreDogruMu) {
+                return res.status(401).json({
+                    error: "Şifre yanlış."
+                });
+            }
+
+            const token = jwt.sign(
+                {
+                    id: user.id,
+                    username: user.username
+                },
+                SECRET_KEY,
+                {
+                    expiresIn: "1d"
+                }
+            );
+
+            res.json({
+                message: "Giriş başarılı.",
+                token: token
+            });
+
+        }
+    );
+
+});
+
+function tokenKontrol(req, res, next) {
+    const authHeader = req.headers["authorization"];
+
+    if (!authHeader) {
+        return res.status(401).json({
+            error: "Token bulunamadı."
+        });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json({
+            error: "Geçersiz token."
+        });
+    }
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) {
+            return res.status(403).json({
+                error: "Token geçersiz veya süresi dolmuş."
+            });
+        }
+
+        req.user = user;
+        next();
+    });
+}
 
 app.listen(PORT, () => {
   console.log(`Server çalışıyor: http://localhost:${PORT}`);

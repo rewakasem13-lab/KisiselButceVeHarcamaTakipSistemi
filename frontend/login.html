@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <div class="auth-page login-theme">
+    <div class="auth-card">
+
+        <div class="auth-side">
+           <div class="icon-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png">
+</div>
+
+            <h1>BütçeApp</h1>
+            <p>Finansal hedeflerinize ulaşmanız için yanınızdayız.</p>
+
+            <div class="finance-illustration">
+                <div class="wallet"></div>
+                <div class="chart-bars">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="arrow">↗</div>
+            </div>
+
+           <div class="feature-box">
+
+    <div class="feature-item">
+
+        <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png">
+        </div>
+
+        <div>
+            <strong>Güvenli Giriş</strong>
+            <p>Verileriniz güvenli şekilde korunur.</p>
+        </div>
+
+    </div>
+
+    <div class="feature-item">
+
+        <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828911.png">
+        </div>
+
+        <div>
+            <strong>Kolay Takip</strong>
+            <p>Gelir ve giderlerinizi kolayca yönetin.</p>
+        </div>
+
+    </div>
+
+    <div class="feature-item">
+
+        <div class="feature-icon">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135679.png">
+        </div>
+
+        <div>
+            <strong>Hedeflerinize Ulaşın</strong>
+            <p>Bütçenizi kontrol ederek tasarruf edin.</p>
+        </div>
+
+    </div>
+
+</div>
+        </div>
+
+        <div class="auth-container">
+        <div class="auth-title-row">
+
+    <div class="top-icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png">
+    </div>
+
+    <div>
+        <h1>Hoş Geldiniz</h1>
+
+        <p class="auth-subtitle">
+            Devam etmek için bilgilerinizi girin.
+        </p>
+    </div>
+
+</div>
+
+            <form id="loginForm">
+                <label>KULLANICI ADI</label>
+                <input type="text" id="loginUsername" placeholder="Kullanıcı adınızı girin" required>
+
+                <label>ŞİFRE</label>
+                <input type="password" id="loginPassword" placeholder="Şifrenizi girin" required>
+
+                <button type="submit">Giriş Yap</button>
+            </form>
+
+            <p class="auth-link">
+                Hesabınız yok mu?
+                <a href="register.html">Hemen Kaydolun</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<div id="authBildirim"></div>
+
+<script>
+const loginForm = document.getElementById("loginForm");
+
+loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("loginUsername").value;
+    const password = document.getElementById("loginPassword").value;
+
+    const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    authBildirimGoster(data.message || data.error);
+
+    if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("kullaniciAdi", username);
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1000);
+    }
+});
+
+function authBildirimGoster(mesaj) {
+    const kutu = document.getElementById("authBildirim");
+    kutu.innerText = mesaj;
+    kutu.classList.add("goster");
+
+    setTimeout(() => {
+        kutu.classList.remove("goster");
+    }, 2500);
+}
+</script>
+
+
+</body>
+</html>

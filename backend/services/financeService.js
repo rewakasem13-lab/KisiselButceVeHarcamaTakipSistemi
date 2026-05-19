@@ -22,9 +22,22 @@ function gecerliMiktarMi(miktar) {
     return Number(miktar) > 0;
 }
 
+
+function gecerliBaslikMi(baslik) {
+    return typeof baslik === "string" && baslik.trim().length > 0;
+}
+
+function gelecekTarihMi(tarih) {
+    const bugun = new Date().toISOString().split("T")[0];
+    return tarih > bugun;
+}
+
 module.exports = {
     toplamHesapla,
     kalanBakiyeHesapla,
     butceDurumuHesapla,
-    gecerliMiktarMi
+    gecerliMiktarMi,
+    gecerliBaslikMi,
+    gelecekTarihMi
 };
+

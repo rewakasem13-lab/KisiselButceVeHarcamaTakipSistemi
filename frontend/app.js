@@ -1,3 +1,8 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
 const form = document.getElementById("harcamaForm");
 const harcamaListesi = document.getElementById("harcamaListesi");
 const aramaInput = document.getElementById("aramaInput");
@@ -15,12 +20,17 @@ const verileriTemizleBtn = document.getElementById("verileriTemizleBtn");
 const kullaniciAdiInput = document.getElementById("kullaniciAdiInput");
 const kullaniciAdiBtn = document.getElementById("kullaniciAdiBtn");
 const karsilamaMesaji = document.getElementById("karsilamaMesaji");
+const butceSilBtn = document.getElementById("butceSilBtn");
 
 let butceLimiti = Number(localStorage.getItem("butceLimiti")) || 0;
 let duzenlenenId = null;
 
 async function harcamalariGetir() {
-    const response = await fetch("http://localhost:3000/harcamalar");
+    const response = await fetch("http://localhost:3000/harcamalar", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
     const data = await response.json();
 
     harcamaListesi.innerHTML = "";
@@ -72,6 +82,8 @@ return aramaUygun && kategoriUygun && tarihUygun;
     gelirleriGetir();
     sonIslemleriGetir();
     aylikRaporlariGetir();
+
+    aktifSekmeyiKoru("harcamalar");
 }
 
 form.addEventListener("submit", async function (e) {
@@ -83,7 +95,7 @@ const kategori = document.getElementById("kategori").value;
 const tarih = document.getElementById("tarih").value;
 
 if (!baslik || miktar <= 0 || !kategori || !tarih) {
-    alert("Lütfen tüm zorunlu alanları doğru şekilde doldurunuz.");
+   bildirimGoster("Lütfen tüm zorunlu alanları doğru şekilde doldurunuz.");
     return;
 }
 
@@ -112,9 +124,10 @@ if (tarih > bugun) {
 
     const response = await fetch(url, {
         method: method,
-        headers: {
-            "Content-Type": "application/json"
-        },
+       headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+},
         body: JSON.stringify(harcama)
     });
 
@@ -129,12 +142,17 @@ if (tarih > bugun) {
     harcamalariGetir();
     sonIslemleriGetir();
     aylikRaporlariGetir();
+
+    aktifSekmeyiKoru("harcamalar");
 });
 
 async function harcamaSil(id) {
     const response = await fetch(`http://localhost:3000/harcamalar/${id}`, {
-        method: "DELETE"
-    });
+    method: "DELETE",
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const data = await response.json();
 
@@ -142,6 +160,8 @@ async function harcamaSil(id) {
 
     harcamalariGetir();
     aylikRaporlariGetir();
+
+    aktifSekmeyiKoru("harcamalar");
 }
 
 function harcamaDuzenle(id, baslik, miktar, kategori, tarih, aciklama) {
@@ -171,22 +191,42 @@ tarihFiltre.addEventListener("change", () => {
 });
 
 function butceDurumuGuncelle(toplam) {
+    const toplamButceText = document.getElementById("toplamButceText");
+    const kalanButceText = document.getElementById("kalanButceText");
+    const durumText = document.getElementById("durumText");
+    const butceDurumKarti = document.getElementById("butceDurumKarti");
+
     if (butceLimiti <= 0) {
-        butceDurum.innerText = "Henüz bütçe girilmedi.";
+        document.getElementById("butceDurumButce").innerText =
+    "Henüz bütçe girilmedi.";
+        toplamButceText.innerText = "0 ₺";
+        kalanButceText.innerText = "0 ₺";
+        durumText.innerText = "Bütçe girilmedi";
+
+        butceDurumKarti.classList.remove("durum-iyi");
+        butceDurumKarti.classList.remove("durum-kotu");
         return;
     }
 
     const kalan = butceLimiti - toplam;
+document.getElementById("butceDurumButce").innerText =
+    `Mevcut Bütçe: ${butceLimiti} ₺ | Kalan: ${kalan} ₺`;
+
+    toplamButceText.innerText = butceLimiti + " ₺";
+    kalanButceText.innerText = kalan + " ₺";
 
     if (kalan >= 0) {
-        butceDurum.innerText =
-            `Bütçe: ${butceLimiti} ₺ | Kalan: ${kalan} ₺ | Durum: Bütçe içinde`;
+        durumText.innerText = "Bütçe İçinde";
+
+        butceDurumKarti.classList.remove("durum-kotu");
+        butceDurumKarti.classList.add("durum-iyi");
     } else {
-        butceDurum.innerText =
-            `Bütçe: ${butceLimiti} ₺ | Aşılan Tutar: ${Math.abs(kalan)} ₺ | Durum: Bütçe aşıldı!`;
+        durumText.innerText = "Bütçe Aşıldı";
+
+        butceDurumKarti.classList.remove("durum-iyi");
+        butceDurumKarti.classList.add("durum-kotu");
     }
 }
-
 butceKaydetBtn.addEventListener("click", () => {
     butceLimiti = Number(butceInput.value);
 
@@ -206,11 +246,19 @@ gelirForm.addEventListener("submit", async function (e) {
 
     e.preventDefault();
 
+    const gelirBaslik =
+    document.getElementById("gelirBaslik").value.trim();
+
     const gelirMiktar = Number(document.getElementById("gelirMiktar").value);
 const gelirTarih = document.getElementById("gelirTarih").value;
 
-if (gelirMiktar <= 0 || !gelirTarih) {
-    bildirimGoster("Lütfen geçerli bir gelir miktarı ve tarih giriniz.");
+if (!gelirBaslik || gelirMiktar <= 0 || !gelirTarih) {
+    bildirimGoster("Lütfen gelir başlığı, miktar ve tarih alanlarını doğru doldurunuz.");
+    return;
+}
+
+if (/\d/.test(gelirBaslik)) {
+    bildirimGoster("Gelir başlığında sayı kullanılamaz.");
     return;
 }
 
@@ -222,15 +270,17 @@ if (gelirTarih > bugunGelir) {
 }
 
   const gelir = {
+    baslik: gelirBaslik,
     miktar: gelirMiktar,
     tarih: gelirTarih
 };
 
     const response = await fetch("http://localhost:3000/gelirler", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+       headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+},
         body: JSON.stringify(gelir)
     });
 
@@ -244,10 +294,15 @@ harcamalariGetir();
 sonIslemleriGetir();
 aylikRaporlariGetir();
 
+aktifSekmeyiKoru("gelirler");
 });
 async function gelirleriGetir() {
 
-    const response = await fetch("http://localhost:3000/gelirler");
+    const response = await fetch("http://localhost:3000/gelirler", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const data = await response.json();
 
@@ -259,8 +314,9 @@ async function gelirleriGetir() {
 
     gelirListesi.innerHTML += `
     <div class="gelir-kart">
-        <h3>${gelir.miktar} ₺</h3>
-        <p><strong>Tarih:</strong> ${gelir.tarih}</p>
+        <h3>${gelir.baslik}</h3>
+<p><strong>Miktar:</strong> ${gelir.miktar} ₺</p>
+<p><strong>Tarih:</strong> ${gelir.tarih}</p>
 
         <button onclick="gelirSil(${gelir.id})">
             Sil
@@ -290,9 +346,12 @@ async function gelirleriGetir() {
 gelirleriGetir();
 
 async function gelirSil(id) {
-    const response = await fetch(`http://localhost:3000/gelirler/${id}`, {
-        method: "DELETE"
-    });
+   const response = await fetch(`http://localhost:3000/gelirler/${id}`, {
+    method: "DELETE",
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const data = await response.json();
 
@@ -302,6 +361,8 @@ async function gelirSil(id) {
     harcamalariGetir();
     sonIslemleriGetir();
     aylikRaporlariGetir();
+
+  aktifSekmeyiKoru("gelirler");
 
 }
 
@@ -336,11 +397,23 @@ function sekmeGoster(sekmeId) {
     });
 
     event.target.classList.add("aktif");
-
+window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+});
 }
 async function sonIslemleriGetir() {
-    const harcamaResponse = await fetch("http://localhost:3000/harcamalar");
-    const gelirResponse = await fetch("http://localhost:3000/gelirler");
+    const harcamaResponse = await fetch("http://localhost:3000/harcamalar", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
+
+const gelirResponse = await fetch("http://localhost:3000/gelirler", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const harcamalar = await harcamaResponse.json();
     const gelirler = await gelirResponse.json();
@@ -356,7 +429,7 @@ async function sonIslemleriGetir() {
 
         ...gelirler.map(gelir => ({
             tip: "gelir",
-            baslik: "Gelir",
+           baslik: gelir.baslik || "Gelir",
             miktar: gelir.miktar,
             tarih: gelir.tarih,
             kategori: "Gelir"
@@ -407,8 +480,11 @@ verileriTemizleBtn.addEventListener("click", async () => {
     }
 
     const response = await fetch("http://localhost:3000/veriler", {
-        method: "DELETE"
-    });
+    method: "DELETE",
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const data = await response.json();
 
@@ -427,8 +503,17 @@ verileriTemizleBtn.addEventListener("click", async () => {
 
 async function aylikRaporlariGetir() {
 
-    const harcamaResponse = await fetch("http://localhost:3000/harcamalar");
-    const gelirResponse = await fetch("http://localhost:3000/gelirler");
+    const harcamaResponse = await fetch("http://localhost:3000/harcamalar", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
+
+const gelirResponse = await fetch("http://localhost:3000/gelirler", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+});
 
     const harcamalar = await harcamaResponse.json();
     const gelirler = await gelirResponse.json();
@@ -527,4 +612,33 @@ kullaniciAdiBtn.addEventListener("click", () => {
 
     kullaniciAdiInput.value = "";
 
+});function cikisYap() {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+}
+
+butceSilBtn.addEventListener("click", () => {
+    localStorage.removeItem("butceLimiti");
+    butceLimiti = 0;
+    butceInput.value = "";
+
+    bildirimGoster("Bütçe bilgisi silindi.");
+
+    harcamalariGetir();
 });
+
+function aktifSekmeyiKoru(sekmeId) {
+    document.querySelectorAll(".sekme").forEach(sekme => {
+        sekme.classList.remove("aktif-sekme");
+    });
+
+    document.getElementById(sekmeId).classList.add("aktif-sekme");
+
+    document.querySelectorAll(".menu-btn").forEach(btn => {
+        btn.classList.remove("aktif");
+    });
+
+    document
+        .querySelector(`.menu-btn[onclick="sekmeGoster('${sekmeId}')"]`)
+        .classList.add("aktif");
+}

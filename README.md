@@ -1,193 +1,144 @@
 # Kişisel Bütçe ve Harcama Takip Sistemi
 
-Bu proje, Sistem Analizi ve Tasarımı dersi kapsamında geliştirilmiş kişisel bütçe ve harcama takip uygulamasıdır.
+Bu proje, Sistem Analizi ve Tasarımı dersi kapsamında geliştirilmiş web tabanlı bir kişisel bütçe ve harcama takip sistemidir. Uygulama, kullanıcıların gelir ve giderlerini yönetmesini, bütçe durumlarını takip etmesini ve aylık finansal özetlerini görüntülemesini sağlar.
+
+Proje; kullanıcı kayıt/giriş sistemi, JWT tabanlı kimlik doğrulama, kullanıcıya özel veri yönetimi, CRUD işlemleri, RESTful API yapısı, Swagger API dokümantasyonu ve unit test desteği içermektedir.
+
+---
 
 ## Proje Amacı
 
-Kullanıcıların:
+Bu sistemin temel amacı, kullanıcıların kişisel finansal hareketlerini düzenli şekilde takip edebilmesini sağlamaktır.
 
-- gelirlerini takip etmesi
-- harcamalarını yönetmesi
-- bütçe planlaması yapması
-- aylık raporları görüntülemesi
+Kullanıcılar sistem üzerinden:
 
-amaçlanmıştır.
+- Gelir kayıtlarını oluşturabilir ve görüntüleyebilir.
+- Harcama kayıtlarını oluşturabilir, güncelleyebilir, silebilir ve filtreleyebilir.
+- Aylık bütçe limiti belirleyebilir.
+- Toplam gelir, toplam harcama ve kalan bakiye bilgilerini görüntüleyebilir.
+- Son finansal hareketlerini takip edebilir.
+- Aylık raporlar üzerinden finansal durum analizi yapabilir.
 
 ---
 
-# Kullanılan Teknolojiler
+## Kullanılan Teknolojiler
 
-## Frontend
+### Frontend
+
 - HTML5
 - CSS3
-- JavaScript
+- Vanilla JavaScript
+- Fetch API
+- LocalStorage
 
-## Backend
+### Backend
+
 - Node.js
 - Express.js
+- RESTful API
 
-## Veritabanı
+### Veritabanı
+
 - SQLite
 
-## Diğer Teknolojiler
+### Kimlik Doğrulama ve Güvenlik
+
+- JWT Authentication
+- bcryptjs ile şifreleme
+- Kullanıcıya özel veri erişimi
+
+### Dokümantasyon ve Test
+
 - Swagger UI
+- Jest Unit Test
 - Nodemon
-- LocalStorage
 
 ---
 
-# Özellikler
+## Temel Özellikler
 
-## Dashboard
-- Toplam gelir görüntüleme
-- Toplam harcama görüntüleme
-- Kalan bakiye hesaplama
-- Bütçe durumu gösterimi
+### Kullanıcı Sistemi
 
-## Harcama Yönetimi
+- Yeni kullanıcı kaydı yapılabilir.
+- Kayıtlı kullanıcı sisteme giriş yapabilir.
+- Şifreler bcryptjs ile hashlenerek saklanır.
+- Giriş işlemi sonrasında JWT token oluşturulur.
+- Gelir ve harcama kayıtları kullanıcıya özel tutulur.
+- Bir kullanıcı başka bir kullanıcının verilerini görüntüleyemez veya silemez.
+
+### Dashboard
+
+- Toplam gelir bilgisi görüntülenir.
+- Toplam harcama bilgisi görüntülenir.
+- Kalan bakiye hesaplanır.
+- Bütçe durumu gösterilir.
+
+### Harcama Yönetimi
+
 - Harcama ekleme
 - Harcama güncelleme
 - Harcama silme
-- Kategori filtreleme
-- Tarih filtreleme
-- Harcama arama
+- Harcama listeleme
+- Kategoriye göre filtreleme
+- Tarihe göre filtreleme
+- Başlığa göre arama
 
-## Gelir Yönetimi
+### Gelir Yönetimi
+
 - Gelir ekleme
 - Gelir silme
-- Gelir listesi görüntüleme
+- Gelir listeleme
 
-## Bütçe Yönetimi
+### Bütçe Yönetimi
+
 - Aylık bütçe limiti belirleme
+- Kalan bütçe hesaplama
 - Bütçe aşımı kontrolü
+- Bütçe bilgisini silme
 
-## Son İşlemler
-- Son gelir ve gider hareketleri
+### Son İşlemler
 
-## Aylık Raporlar
-- Aylık gelir hesaplama
-- Aylık gider hesaplama
-- En çok harcama yapılan kategori
+- Gelir ve harcama hareketleri tek bir ekranda listelenir.
+- Gelirler ve harcamalar farklı renklerle gösterilir.
 
-## Ayarlar
-- Dark mode desteği
-- Kullanıcı adı değiştirme
-- Tüm verileri temizleme
+### Aylık Raporlar
 
----
+- Bu ayki toplam gelir hesaplanır.
+- Bu ayki toplam harcama hesaplanır.
+- Bu ayki kalan bakiye hesaplanır.
+- En çok harcama yapılan kategori görüntülenir.
 
-# Kurulum
+### Ayarlar
 
-## Projeyi klonlama
-
-```bash
-git clone https://github.com/rewakasem13-lab/KisiselButceVeHarcamaTakipSistemi.git
-```
-
-## Backend kurulumu
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-## Frontend çalıştırma
-
-Frontend kısmı Live Server eklentisi ile çalıştırılabilir.
+- Kullanıcı adı güncellenebilir.
+- Koyu tema desteği bulunur.
+- Kullanıcı kendi verilerini temizleyebilir.
 
 ---
 
-# Swagger API Dokümantasyonu
+## Proje Mimarisi
 
-Uygulama çalışırken:
+Proje frontend ve backend olmak üzere iki ana bölümden oluşmaktadır.
 
 ```text
-http://localhost:3000/api-docs
-```
-
-adresinden API dokümantasyonuna erişilebilir.
-
----
-
-# API Endpointleri
-
-## Harcamalar
-- GET /harcamalar
-- POST /harcamalar
-- PUT /harcamalar/:id
-- DELETE /harcamalar/:id
-
-## Gelirler
-- GET /gelirler
-- POST /gelirler
-- DELETE /gelirler/:id
-
----
-
-# Geliştirici
-
-Rewa Kasem
-
----
-
-# Ders
-
-Sistem Analizi ve Tasarımı
-
----
-
-# Ekran Görüntüleri
-
-## Dashboard
-
-![Dashboard](screenshot/dashboard.jpg)
-
----
-
-## Harcamalar
-
-![Harcamalar](screenshot/harcamalar.jpg)
-
----
-
-## Harcama Detayları
-
-![Harcama Detayları](screenshot/harcama-ekran-devami.jpg)
-
----
-
-## Gelirler
-
-![Gelirler](screenshot/gelirler.jpg)
-
----
-
-## Bütçe Yönetimi
-
-![Bütçe Yönetimi](screenshot/butce.jpg)
-
----
-
-## Son İşlemler
-
-![Son İşlemler](screenshot/son-islemler.jpg)
-
----
-
-## Aylık Raporlar
-
-![Aylık Raporlar](screenshot/raporlar.jpg)
-
----
-
-## Ayarlar
-
-![Ayarlar](screenshot/ayarlar.jpg)
-
-
----
-
-## Unit Test Sonuçları
-
-![Unit Test](screenshot/testler.jpg)
+ButceTakipSistemi
+│
+├── backend
+│   ├── services
+│   │   └── financeService.js
+│   ├── tests
+│   │   └── financeService.test.js
+│   ├── database.js
+│   ├── server.js
+│   ├── package.json
+│   └── butce.db
+│
+├── frontend
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── app.js
+│   ├── style.css
+│   └── screenshot
+│
+└── README.md

@@ -2,7 +2,9 @@ const {
     toplamHesapla,
     kalanBakiyeHesapla,
     butceDurumuHesapla,
-    gecerliMiktarMi
+    gecerliMiktarMi,
+    gecerliBaslikMi,
+    gelecekTarihMi
 } = require("../services/financeService");
 
 test("Toplam harcama doğru hesaplanmalı", () => {
@@ -51,4 +53,16 @@ test("Pozitif miktar geçerli olmalı", () => {
         gecerliMiktarMi(150)
     ).toBe(true);
 
+});
+
+test("Boş başlık geçersiz olmalı", () => {
+    expect(gecerliBaslikMi("")).toBe(false);
+});
+
+test("Dolu başlık geçerli olmalı", () => {
+    expect(gecerliBaslikMi("Maaş")).toBe(true);
+});
+
+test("Gelecek tarih geçersiz olmalı", () => {
+    expect(gelecekTarihMi("2099-01-01")).toBe(true);
 });
