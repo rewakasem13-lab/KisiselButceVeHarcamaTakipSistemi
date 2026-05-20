@@ -1747,3 +1747,765 @@ body.dark-mode #dashboard .ozet-kutu p {
 body.dark-mode #dashboard .durum-item strong {
     color: #16a34a !important;
 }
+
+/* MODERN KART ANİMASYONLARI */
+
+.ozet-kutu,
+.form-container,
+.liste-container,
+.butce-container,
+.harcama-kart,
+.gelir-kart,
+.islem-kart,
+.durum-item,
+.kategori-karti,
+.mevcut-butce-karti {
+    transition: all 0.25s ease !important;
+}
+
+.ozet-kutu:hover,
+.form-container:hover,
+.liste-container:hover,
+.butce-container:hover,
+.harcama-kart:hover,
+.gelir-kart:hover,
+.islem-kart:hover,
+.durum-item:hover,
+.kategori-karti:hover,
+.mevcut-butce-karti:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12) !important;
+}
+
+.menu-btn {
+    transition: all 0.25s ease !important;
+}
+
+.menu-btn:hover {
+    transform: translateX(4px);
+}
+
+button {
+    transition: all 0.25s ease !important;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* SIDEBAR PROFİL KARTI */
+
+.profil-karti {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 14px;
+    margin: 20px 0 28px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.profil-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 6px 18px rgba(139,92,246,0.35);
+}
+
+.profil-bilgi {
+    display: flex;
+    flex-direction: column;
+}
+
+.profil-bilgi strong {
+    color: white;
+    font-size: 15px;
+}
+
+.online-text {
+    color: #86efac;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+/* SIDEBAR PROFİL KARTI */
+
+.profil-karti {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 14px;
+    margin: 20px 0 28px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.profil-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(139,92,246,0.35);
+}
+
+.profil-avatar i {
+    color: white;
+    font-size: 20px;
+}
+
+.profil-bilgi {
+    display: flex;
+    flex-direction: column;
+}
+
+.profil-bilgi strong {
+    color: white;
+    font-size: 15px;
+}
+
+.online-text {
+    color: #86efac;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+/* GENEL BOYUT BÜYÜTME */
+
+.sidebar {
+    width: 280px !important;
+}
+
+.main-content {
+    margin-left: 280px !important;
+    padding: 45px 70px !important;
+}
+
+.dashboard {
+    gap: 28px !important;
+}
+
+.ozet-kutu {
+    min-width: 260px !important;
+    min-height: 120px !important;
+    padding: 24px !important;
+}
+
+.ozet-kutu h3 {
+    font-size: 20px !important;
+}
+
+.ozet-kutu p {
+    font-size: 34px !important;
+}
+
+.durum-item {
+    min-width: 190px !important;
+    min-height: 100px !important;
+    padding: 20px !important;
+}
+
+.durum-item strong {
+    font-size: 28px !important;
+}
+
+.menu-btn {
+    padding: 16px 18px !important;
+    font-size: 17px !important;
+}
+
+.logo {
+    font-size: 42px !important;
+}
+
+/* EXTRA LARGE DASHBOARD KARTLARI */
+
+.ozet-kutu {
+    width: 320px !important;
+    min-height: 145px !important;
+    padding: 30px !important;
+    border-radius: 22px !important;
+}
+
+.ozet-kutu h3 {
+    font-size: 22px !important;
+    margin-bottom: 14px !important;
+}
+
+.ozet-kutu p {
+    font-size: 42px !important;
+}
+
+.durum-item {
+    width: 230px !important;
+    min-height: 120px !important;
+    padding: 24px !important;
+    border-radius: 20px !important;
+}
+
+.durum-item strong {
+    font-size: 34px !important;
+}
+
+/* TÜM UYGULAMAYI BÜYÜT */
+
+body {
+    zoom: 1.12;
+}
+
+/* TÜM ANA KUTULAR */
+
+.form-container,
+.liste-container,
+.butce-container,
+.rapor-container,
+.ayar-container,
+.islem-container {
+    padding: 30px !important;
+    border-radius: 22px !important;
+}
+
+/* INPUTLAR */
+
+input,
+select {
+    height: 52px !important;
+    font-size: 16px !important;
+    border-radius: 14px !important;
+    padding: 0 16px !important;
+}
+
+/* BUTONLAR */
+
+button {
+    height: 52px !important;
+    font-size: 16px !important;
+    border-radius: 14px !important;
+}
+
+/* KARTLAR */
+
+.harcama-kart,
+.gelir-kart,
+.islem-kart {
+    padding: 24px !important;
+    border-radius: 18px !important;
+}
+
+/* BAŞLIKLAR */
+
+h1 {
+    font-size: 46px !important;
+}
+
+h2 {
+    font-size: 32px !important;
+}
+
+h3 {
+    font-size: 24px !important;
+}
+
+/* DASHBOARD GRAFİK */
+
+.grafik-container {
+    margin-top: 28px !important;
+}
+
+#gelirHarcamaGrafik {
+    max-height: 320px !important;
+}
+
+.grafik-container {
+    height: 420px !important;
+}
+
+#gelirHarcamaGrafik {
+    width: 100% !important;
+    height: 320px !important;
+}
+
+/* DASHBOARD KARTLARINI KÜÇÜLT */
+
+.ozet-kutu {
+    width: 350px !important;
+    min-height: 95px !important;
+    padding: 25px !important;
+}
+
+.ozet-kutu h3 {
+    font-size: 18px !important;
+}
+
+.ozet-kutu p {
+    font-size: 35px !important;
+}
+
+.durum-item {
+    width: 170px !important;
+    min-height: 85px !important;
+    padding: 16px !important;
+}
+
+.durum-item strong {
+    font-size: 22px !important;
+}
+
+/* PROFİL DROPDOWN MENÜ */
+
+.profil-karti {
+    position: relative;
+    cursor: pointer;
+}
+
+.profil-ok {
+    margin-left: auto;
+    color: #d1d5db;
+    font-size: 13px;
+}
+
+.profil-dropdown {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 78px;
+    width: 100%;
+    background: #1f2937;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 16px;
+    padding: 10px;
+    z-index: 999;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.25);
+}
+
+.profil-dropdown.aktif {
+    display: block;
+}
+
+.profil-dropdown button {
+    width: 100%;
+    height: auto !important;
+    padding: 12px 14px !important;
+    background: transparent !important;
+    color: #e5e7eb !important;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    font-size: 14px !important;
+}
+
+.profil-dropdown button:hover {
+    background: rgba(255,255,255,0.08) !important;
+    transform: none !important;
+}
+
+/* TOPBAR */
+
+.topbar {
+    width: 100%;
+    height: 78px;
+    background: white;
+    border-radius: 22px;
+    padding: 0 28px;
+    margin-bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+.topbar-sol h2 {
+    color: #4c1d95;
+    font-size: 28px;
+    margin: 0;
+}
+
+.topbar-sag {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.topbar-kullanici {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #f5f3ff;
+    padding: 12px 18px;
+    border-radius: 14px;
+
+    color: #5b21b6;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 14px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+}
+
+.topbar {
+    display: none !important;
+}
+
+.dashboard-top-panel {
+    background: white;
+    border-radius: 22px;
+    padding: 22px 28px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+}
+
+.dashboard-top-panel h2 {
+    margin: 0 0 6px 0;
+    color: #4c1d95;
+    font-size: 26px;
+}
+
+.dashboard-top-panel p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.dashboard-exit-btn {
+    width: auto !important;
+    padding: 12px 22px !important;
+    background: linear-gradient(135deg, #7c3aed, #6d28d9) !important;
+}
+
+/* DASHBOARD ÜST HEADER PANEL */
+
+.dashboard-header-panel {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 22px 34px;
+    margin-bottom: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+
+.app-mini-title {
+    color: #7c3aed;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.dashboard-header-panel h2 {
+    margin: 6px 0 0 0;
+    color: #111827;
+    font-size: 26px;
+}
+
+.header-logout-btn {
+    background: transparent !important;
+    color: #4b5563 !important;
+    font-weight: 700;
+    padding: 10px 16px !important;
+    border-radius: 10px;
+    width: auto !important;
+}
+
+.header-logout-btn:hover {
+    background: #f3f4f6 !important;
+    transform: none !important;
+}
+
+/* GLOBAL HEADER */
+
+.global-header {
+    width: calc(100% + 140px);
+    margin-left: -70px;
+
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+
+    padding: 24px 42px;
+    margin-bottom: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+}
+
+.header-mini {
+    color: #7c3aed;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 4px;
+}
+
+.global-header {
+    width: calc(100% + 140px);
+    margin-left: -70px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f5f3ff 100%
+    );
+
+    border-bottom: 1px solid #e9d5ff;
+
+    padding: 14px 32px;
+    margin-bottom: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow:
+    0 8px 28px rgba(124,58,237,0.08);
+
+    backdrop-filter: blur(10px);
+}
+.header-cikis-btn {
+    width: auto !important;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #6d28d9
+    ) !important;
+
+    color: white !important;
+
+    padding: 14px 22px !important;
+
+    font-weight: 700;
+    border-radius: 14px;
+
+    border: none;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    box-shadow:
+    0 8px 20px rgba(124,58,237,0.28);
+
+    transition: all 0.25s ease;
+}
+
+.header-cikis-btn:hover {
+    background: #dc2626 !important;
+
+    color: white !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+    0 12px 26px rgba(220,38,38,0.40);
+}
+
+
+/* SIDEBAR GENİŞLETME */
+
+.sidebar {
+    width: 340px !important;
+}
+
+.main-content {
+    margin-left: 320px !important;
+}
+
+/* SIDEBAR TAM GENİŞLETME */
+
+.sidebar {
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+}
+
+.main-content {
+    margin-left: 300px !important;
+    width: calc(100% - 320px) !important;
+}
+
+/* HEADER SABİT KALSIN */
+
+.global-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 900 !important;
+}
+
+/* HEADER TAM SABİT */
+
+.global-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 320px !important;
+    right: 0 !important;
+    width: auto !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+    z-index: 9999 !important;
+}
+
+/* HEADER ALTINDA İÇERİK KAYMASIN */
+.main-content {
+    padding-top: 145px !important;
+}
+
+
+/* SABİT VE İNCE HEADER */
+
+.global-header {
+    position: fixed !important;
+
+    top: 0;
+    left: 200px;
+    right: 0;
+
+    height: 68px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ffffff 0%,
+        #f5f3ff 100%
+    );
+
+    border-bottom: 1px solid #e9d5ff;
+
+    padding: 0 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow:
+    0 6px 20px rgba(124,58,237,0.08);
+
+    z-index: 9999;
+}
+
+/* HEADER YAZILARI */
+
+.header-mini {
+    color: #7c3aed;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.global-header h1 {
+    margin: 2px 0 0 0;
+    color: #111827;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ÇIKIŞ BUTONU */
+
+.header-cikis-btn {
+    width: auto !important;
+
+    background:
+    linear-gradient(
+        135deg,
+        #7c3aed,
+        #6d28d9
+    ) !important;
+
+    color: white !important;
+
+    padding: 10px 18px !important;
+
+    border-radius: 12px;
+
+    border: none;
+
+    font-weight: 700;
+
+    box-shadow:
+    0 8px 20px rgba(124,58,237,0.28);
+
+    transition: all 0.25s ease;
+}
+
+.header-cikis-btn:hover {
+    background: #dc2626 !important;
+
+    color: white !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+    0 12px 26px rgba(220,38,38,0.35);
+}
+
+
+
+/* HEADER BAŞLIK KÜÇÜLTME */
+
+.global-header h1 {
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    margin-top: 2px !important;
+}
+
+/* HEADER YÜKSEKLİĞİNİ ARTIR */
+
+.global-header {
+    height: 95px !important;
+    padding: 0 40px !important;
+}
+
+.global-header {
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    ) !important;
+}
+.global-header h1,
+.header-mini {
+    color: white !important;
+}
+

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bütçe Takip Sistemi</title>
@@ -11,9 +15,37 @@
 <div class="app-layout">
 
     <aside class="sidebar">
+       
+
         <h2 class="logo">BütçeApp</h2>
 
-      <button class="menu-btn aktif" onclick="sekmeGoster('dashboard')">
+<div class="profil-karti" onclick="profilMenuAcKapat()">
+
+    <div class="profil-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="profil-bilgi">
+        <strong id="sidebarKullaniciAdi">Rewa Kasem</strong>
+        <span class="online-text">● Online</span>
+    </div>
+
+    <i class="fa-solid fa-chevron-down profil-ok"></i>
+
+    <div class="profil-dropdown" id="profilDropdown">
+        <button onclick="sekmeGoster('ayarlar')">
+            <i class="fa-solid fa-gear"></i>
+            Ayarlar
+        </button>
+
+        <button onclick="cikisYap()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Çıkış Yap
+        </button>
+    </div>
+
+</div>
+<button class="menu-btn aktif" onclick="sekmeGoster('dashboard')">
     <span class="side-icon">⌂</span>
     Dashboard
 </button>
@@ -54,20 +86,45 @@
         Giriş Yap
     </button>
 
-    <button class="logout-btn"
-        onclick="cikisYap()">
-        Çıkış Yap
-    </button>
+    
 
 </div>
 
     </aside>
 
-    <main class="main-content">
+    
+
+        <main class="main-content">
+
+            <div class="global-header">
+
+    <div class="header-left">
+
+        <span class="header-mini">
+            BÜTÇEAPP
+        </span>
+
+        <h1>
+            Kişisel Bütçe ve Harcama Takip Sistemi
+        </h1>
+
+    </div>
+
+    <button class="header-cikis-btn" onclick="cikisYap()">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Güvenli Çıkış
+</button>
+
+</div>
+   
 
         <section id="dashboard" class="sekme aktif-sekme">
             
             <h1>Dashboard</h1>
+
+     
+
+
 <h2 id="karsilamaMesaji">
     Merhaba, Rewa 👋
 </h2>
@@ -107,6 +164,11 @@
         <span class="durum-etiket">Durum</span>
         <strong id="durumText">-</strong>
     </div>
+    <div class="liste-container grafik-container">
+    <h2>Gelir ve Harcama Grafiği</h2>
+
+    <canvas id="gelirHarcamaGrafik"></canvas>
+</div>
         </section>
 
         <section id="harcamalar" class="sekme">

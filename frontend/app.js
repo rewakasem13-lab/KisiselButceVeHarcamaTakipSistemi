@@ -20,10 +20,19 @@ const verileriTemizleBtn = document.getElementById("verileriTemizleBtn");
 const kullaniciAdiInput = document.getElementById("kullaniciAdiInput");
 const kullaniciAdiBtn = document.getElementById("kullaniciAdiBtn");
 const karsilamaMesaji = document.getElementById("karsilamaMesaji");
-const butceSilBtn = document.getElementById("butceSilBtn");
 
+const sidebarKullaniciAdi = document.getElementById("sidebarKullaniciAdi");
+const butceSilBtn = document.getElementById("butceSilBtn");
+const topbarKullaniciAdi =
+    document.getElementById("topbarKullaniciAdi");
+
+const sayfaBaslik =
+    document.getElementById("sayfaBaslik");
+
+let gelirHarcamaChart = null;
 let butceLimiti = Number(localStorage.getItem("butceLimiti")) || 0;
 let duzenlenenId = null;
+
 
 async function harcamalariGetir() {
     const response = await fetch("http://localhost:3000/harcamalar", {
@@ -82,6 +91,7 @@ return aramaUygun && kategoriUygun && tarihUygun;
     gelirleriGetir();
     sonIslemleriGetir();
     aylikRaporlariGetir();
+    gelirHarcamaGrafigiGuncelle();
 
     aktifSekmeyiKoru("harcamalar");
 }
@@ -341,9 +351,11 @@ async function gelirleriGetir() {
     document.getElementById("kalanBakiye").innerText =
         kalanBakiye + " ₺";
 
+       
+        gelirleriGetir();
 }
 
-gelirleriGetir();
+
 
 async function gelirSil(id) {
    const response = await fetch(`http://localhost:3000/gelirler/${id}`, {
@@ -594,6 +606,14 @@ let kullaniciAdi =
 karsilamaMesaji.innerText =
     `Merhaba, ${kullaniciAdi} 👋`;
 
+    if (topbarKullaniciAdi) {
+    topbarKullaniciAdi.innerText = kullaniciAdi;
+}
+
+    if (sidebarKullaniciAdi) {
+    sidebarKullaniciAdi.innerText = kullaniciAdi;
+}
+
 kullaniciAdiBtn.addEventListener("click", () => {
 
     const yeniAd = kullaniciAdiInput.value.trim();
@@ -641,4 +661,72 @@ function aktifSekmeyiKoru(sekmeId) {
     document
         .querySelector(`.menu-btn[onclick="sekmeGoster('${sekmeId}')"]`)
         .classList.add("aktif");
+
+       
+}
+
+
+async function gelirHarcamaGrafigiGuncelle() {
+    const harcamaResponse = await fetch("http://localhost:3000/harcamalar", {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const gelirResponse = await fetch("http://localhost:3000/gelirler", {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    const harcamalar = await harcamaResponse.json();
+    const gelirler = await gelirResponse.json();
+
+    const toplamHarcama = harcamalar.reduce((toplam, h) => {
+        return toplam + Number(h.miktar);
+    }, 0);
+
+    const toplamGelir = gelirler.reduce((toplam, g) => {
+        return toplam + Number(g.miktar);
+    }, 0);
+
+    const ctx = document.getElementById("gelirHarcamaGrafik");
+
+    if (!ctx) return;
+
+    if (gelirHarcamaChart) {
+        gelirHarcamaChart.destroy();
+    }
+
+    gelirHarcamaChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Gelir", "Harcama"],
+            datasets: [{
+                label: "Tutar",
+                data: [toplamGelir, toplamHarcama],
+                backgroundColor: ["#16a34a", "#dc2626"],
+                borderRadius: 12
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+
+function profilMenuAcKapat() {
+    const menu = document.getElementById("profilDropdown");
+    menu.classList.toggle("aktif");
 }
